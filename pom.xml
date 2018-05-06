@@ -25,6 +25,8 @@
           <groupId>com.tverdokhlebd</groupId>
           <artifactId>mining-commons-library</artifactId>
           <version>1.0.0</version>
+          <scope>system</scope>
+          <systemPath>${project.basedir}/lib/mining-commons-library-1.0.0.jar</systemPath>
       </dependency>
   </dependencies>
   <build>
