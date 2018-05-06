@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tverdokhlebd</groupId>
   <artifactId>mining-pool-api</artifactId>
-  <version>0.0.1</version>
+  <version>1.0.0</version>
   <name>Mining Pool API</name>
   <dependencies>
       <dependency>
