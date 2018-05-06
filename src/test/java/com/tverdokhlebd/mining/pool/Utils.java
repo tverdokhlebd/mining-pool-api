@@ -11,6 +11,9 @@ import java.math.BigDecimal;
 import org.json.JSONObject;
 
 import com.tverdokhlebd.mining.coin.CoinType;
+import com.tverdokhlebd.mining.pool.requestor.AccountRequestor;
+import com.tverdokhlebd.mining.pool.requestor.AccountRequestorException;
+import com.tverdokhlebd.mining.pool.requestor.AccountRequestorFactory;
 
 import okhttp3.Interceptor;
 import okhttp3.MediaType;

@@ -1,6 +1,7 @@
-package com.tverdokhlebd.mining.pool;
+package com.tverdokhlebd.mining.pool.requestor;
 
 import com.tverdokhlebd.mining.coin.CoinType;
+import com.tverdokhlebd.mining.pool.Account;
 
 /**
  * Interface for requesting pool account.

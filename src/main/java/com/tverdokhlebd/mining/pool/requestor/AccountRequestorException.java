@@ -1,4 +1,4 @@
-package com.tverdokhlebd.mining.pool;
+package com.tverdokhlebd.mining.pool.requestor;
 
 import com.tverdokhlebd.mining.http.ErrorCode;
 import com.tverdokhlebd.mining.http.RequestException;

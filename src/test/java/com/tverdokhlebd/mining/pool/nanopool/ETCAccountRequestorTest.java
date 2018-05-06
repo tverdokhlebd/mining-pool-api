@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import com.tverdokhlebd.mining.pool.AccountRequestorException;
 import com.tverdokhlebd.mining.pool.Utils;
+import com.tverdokhlebd.mining.pool.requestor.AccountRequestorException;
 import com.tverdokhlebd.mining.utils.HashrateUtils;
 
 import okhttp3.Interceptor;

@@ -26,7 +26,7 @@ import com.tverdokhlebd.mining.coin.CoinType;
 import com.tverdokhlebd.mining.http.RequestException;
 import com.tverdokhlebd.mining.pool.Account;
 import com.tverdokhlebd.mining.pool.Account.Builder;
-import com.tverdokhlebd.mining.pool.AccountBaseRequestor;
+import com.tverdokhlebd.mining.pool.requestor.AccountBaseRequestor;
 import com.tverdokhlebd.mining.pool.PoolType;
 import com.tverdokhlebd.mining.utils.HashrateUtils;
 

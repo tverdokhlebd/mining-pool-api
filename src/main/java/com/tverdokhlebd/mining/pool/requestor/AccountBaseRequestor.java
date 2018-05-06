@@ -1,4 +1,4 @@
-package com.tverdokhlebd.mining.pool;
+package com.tverdokhlebd.mining.pool.requestor;
 
 import static com.tverdokhlebd.mining.utils.TimeUtils.addMinutes;
 
@@ -9,6 +9,9 @@ import java.util.List;
 import com.tverdokhlebd.mining.coin.CoinType;
 import com.tverdokhlebd.mining.http.BaseRequestor;
 import com.tverdokhlebd.mining.http.RequestException;
+import com.tverdokhlebd.mining.pool.Account;
+import com.tverdokhlebd.mining.pool.AccountCaching;
+import com.tverdokhlebd.mining.pool.PoolType;
 
 import okhttp3.OkHttpClient;
 
