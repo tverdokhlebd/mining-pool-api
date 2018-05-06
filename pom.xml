@@ -21,6 +21,11 @@
           <version>4.12</version>
           <scope>test</scope>
       </dependency>
+      <dependency>
+          <groupId>com.tverdokhlebd</groupId>
+          <artifactId>mining-commons-library</artifactId>
+          <version>1.0.0</version>
+      </dependency>
   </dependencies>
   <build>
       <plugins>

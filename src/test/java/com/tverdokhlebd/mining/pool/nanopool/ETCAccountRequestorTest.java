@@ -3,7 +3,7 @@ package com.tverdokhlebd.mining.pool.nanopool;
 import static com.tverdokhlebd.mining.coin.CoinType.BTC;
 import static com.tverdokhlebd.mining.coin.CoinType.ETC;
 import static com.tverdokhlebd.mining.pool.PoolType.NANOPOOL;
-import static com.tverdokhlebd.mining.pool.Utils.MEDIA_JSON;
+import static com.tverdokhlebd.mining.utils.HttpClientUtils.MEDIA_JSON;
 import static okhttp3.Protocol.HTTP_2;
 
 import java.math.BigDecimal;
@@ -14,6 +14,7 @@ import org.junit.Test;
 import com.tverdokhlebd.mining.pool.Utils;
 import com.tverdokhlebd.mining.pool.requestor.AccountRequestorException;
 import com.tverdokhlebd.mining.utils.HashrateUtils;
+import com.tverdokhlebd.mining.utils.HttpClientUtils;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -63,7 +64,7 @@ public class ETCAccountRequestorTest {
                 "  \"status\":false,\n" +
                 "  \"error\":\"No data found\"\n" +
                 "}");
-        OkHttpClient httpClient = Utils.getHttpClient(response.toString(), 200);
+        OkHttpClient httpClient = HttpClientUtils.createHttpClient(response.toString(), 200);
         Utils.testApiError(NANOPOOL, httpClient, ETC, WALLET_ADDRESS, "No data found");
     }
 

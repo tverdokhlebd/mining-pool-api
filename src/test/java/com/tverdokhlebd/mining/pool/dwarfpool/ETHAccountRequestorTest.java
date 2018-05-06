@@ -12,6 +12,7 @@ import org.junit.Test;
 import com.tverdokhlebd.mining.pool.Utils;
 import com.tverdokhlebd.mining.pool.requestor.AccountRequestorException;
 import com.tverdokhlebd.mining.utils.HashrateUtils;
+import com.tverdokhlebd.mining.utils.HttpClientUtils;
 
 import okhttp3.OkHttpClient;
 
@@ -54,7 +55,7 @@ public class ETHAccountRequestorTest {
                 "    }\n" +
                 "  }\n" +
                 "}");
-        OkHttpClient httpClient = Utils.getHttpClient(response.toString(), 200);
+        OkHttpClient httpClient = HttpClientUtils.createHttpClient(response.toString(), 200);
         BigDecimal expectedBalance = BigDecimal.valueOf(1.44245810);
         BigDecimal expectedHashrate = HashrateUtils.convertMegaHashesToHashes(BigDecimal.valueOf(173.67));
         Utils.testAccount(DWARFPOOL, httpClient, ETH, WALLET_ADDRESS, expectedBalance, expectedHashrate);
@@ -66,7 +67,7 @@ public class ETHAccountRequestorTest {
                 "  \"error\":true,\n" +
                 "  \"error_code\":\"API_DOWN\"\n" +
                 "}");
-        OkHttpClient httpClient = Utils.getHttpClient(response.toString(), 200);
+        OkHttpClient httpClient = HttpClientUtils.createHttpClient(response.toString(), 200);
         Utils.testApiError(DWARFPOOL, httpClient, ETH, WALLET_ADDRESS, "API_DOWN");
     }
 

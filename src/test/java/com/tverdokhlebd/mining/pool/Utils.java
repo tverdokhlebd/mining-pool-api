@@ -3,7 +3,6 @@ package com.tverdokhlebd.mining.pool;
 import static com.tverdokhlebd.mining.http.ErrorCode.API_ERROR;
 import static com.tverdokhlebd.mining.http.ErrorCode.HTTP_ERROR;
 import static com.tverdokhlebd.mining.http.ErrorCode.PARSE_ERROR;
-import static okhttp3.Protocol.HTTP_2;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
@@ -14,13 +13,9 @@ import com.tverdokhlebd.mining.coin.CoinType;
 import com.tverdokhlebd.mining.pool.requestor.AccountRequestor;
 import com.tverdokhlebd.mining.pool.requestor.AccountRequestorException;
 import com.tverdokhlebd.mining.pool.requestor.AccountRequestorFactory;
+import com.tverdokhlebd.mining.utils.HttpClientUtils;
 
-import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 /**
  * Utils for tests.
@@ -29,9 +24,6 @@ import okhttp3.ResponseBody;
  *
  */
 public class Utils {
-
-    /** JSON media type. */
-    public static final MediaType MEDIA_JSON = MediaType.parse("application/json");
 
     /**
      * Tests account.
@@ -86,7 +78,7 @@ public class Utils {
      */
     public static void testInternalServerError(PoolType poolType, CoinType coinType, String walletAddress)
             throws AccountRequestorException {
-        OkHttpClient httpClient = Utils.getHttpClient(new JSONObject().toString(), 500);
+        OkHttpClient httpClient = HttpClientUtils.createHttpClient(new JSONObject().toString(), 500);
         AccountRequestor accountRequestor = AccountRequestorFactory.create(poolType, httpClient, false);
         try {
             accountRequestor.requestAccount(coinType, walletAddress);
@@ -106,7 +98,7 @@ public class Utils {
      */
     public static void testEmptyResponse(PoolType poolType, CoinType coinType, String walletAddress)
             throws AccountRequestorException {
-        OkHttpClient httpClient = Utils.getHttpClient(new JSONObject().toString(), 200);
+        OkHttpClient httpClient = HttpClientUtils.createHttpClient(new JSONObject().toString(), 200);
         AccountRequestor accountRequestor = AccountRequestorFactory.create(poolType, httpClient, false);
         try {
             accountRequestor.requestAccount(coinType, walletAddress);
@@ -126,7 +118,7 @@ public class Utils {
      */
     public static void testUnsupportedCoin(PoolType poolType, CoinType coinType, String walletAddress)
             throws AccountRequestorException {
-        OkHttpClient httpClient = Utils.getHttpClient(new JSONObject().toString(), 200);
+        OkHttpClient httpClient = HttpClientUtils.createHttpClient(new JSONObject().toString(), 200);
         AccountRequestor accountRequestor = AccountRequestorFactory.create(poolType, httpClient, false);
         try {
             accountRequestor.requestAccount(coinType, walletAddress);
@@ -146,7 +138,7 @@ public class Utils {
      */
     public static void testEmptyWalletAddress(PoolType poolType, CoinType coinType, String walletAddress)
             throws AccountRequestorException {
-        OkHttpClient httpClient = Utils.getHttpClient(new JSONObject().toString(), 200);
+        OkHttpClient httpClient = HttpClientUtils.createHttpClient(new JSONObject().toString(), 200);
         AccountRequestor accountRequestor = AccountRequestorFactory.create(poolType, httpClient, false);
         try {
             accountRequestor.requestAccount(coinType, walletAddress);
@@ -154,22 +146,6 @@ public class Utils {
             assertEquals("Wallet address is null or empty", e.getMessage());
             throw e;
         }
-    }
-
-    /**
-     * Gets HTTP client with custom JSON response.
-     *
-     * @param response JSON response
-     * @param responseCode HTTP code
-     * @return HTTP client with custom JSON response
-     */
-    public static OkHttpClient getHttpClient(String response, int responseCode) {
-        Interceptor replaceJSONInterceptor = chain -> {
-            Request request = chain.request();
-            ResponseBody body = ResponseBody.create(MEDIA_JSON, response);
-            return new Response.Builder().body(body).request(request).protocol(HTTP_2).code(responseCode).message("").build();
-        };
-        return new OkHttpClient.Builder().addInterceptor(replaceJSONInterceptor).build();
     }
 
 }

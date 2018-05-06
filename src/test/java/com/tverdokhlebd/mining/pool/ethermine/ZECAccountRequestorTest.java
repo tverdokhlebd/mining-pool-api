@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import com.tverdokhlebd.mining.pool.Utils;
 import com.tverdokhlebd.mining.pool.requestor.AccountRequestorException;
+import com.tverdokhlebd.mining.utils.HttpClientUtils;
 
 import okhttp3.OkHttpClient;
 
@@ -45,7 +46,7 @@ public class ZECAccountRequestorTest {
                 "    \"btcPerMin\":0.0000032101704314147977\n" +
                 "  }\n" +
                 "}");
-        OkHttpClient httpClient = Utils.getHttpClient(response.toString(), 200);
+        OkHttpClient httpClient = HttpClientUtils.createHttpClient(response.toString(), 200);
         BigDecimal expectedBalance = BigDecimal.valueOf(0.000000000000853313);
         BigDecimal expectedHashrate = BigDecimal.valueOf(11386.666666666666);
         Utils.testAccount(ETHERMINE, httpClient, ZEC, WALLET_ADDRESS, expectedBalance, expectedHashrate);
@@ -57,7 +58,7 @@ public class ZECAccountRequestorTest {
                 "  \"status\":\"ERROR\",\n" +
                 "  \"error\":\"Invalid address\"\n" +
                 "}");
-        OkHttpClient httpClient = Utils.getHttpClient(response.toString(), 200);
+        OkHttpClient httpClient = HttpClientUtils.createHttpClient(response.toString(), 200);
         Utils.testApiError(ETHERMINE, httpClient, ZEC, WALLET_ADDRESS, "Invalid address");
     }
 
@@ -67,7 +68,7 @@ public class ZECAccountRequestorTest {
                 "  \"status\":\"OK\",\n" +
                 "  \"data\":\"NO DATA\"\n" +
                 "}");
-        OkHttpClient httpClient = Utils.getHttpClient(response.toString(), 200);
+        OkHttpClient httpClient = HttpClientUtils.createHttpClient(response.toString(), 200);
         Utils.testApiError(ETHERMINE, httpClient, ZEC, WALLET_ADDRESS, "NO DATA");
     }
 

@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import com.tverdokhlebd.mining.pool.Utils;
 import com.tverdokhlebd.mining.pool.requestor.AccountRequestorException;
+import com.tverdokhlebd.mining.utils.HttpClientUtils;
 
 import okhttp3.OkHttpClient;
 
@@ -45,7 +46,7 @@ public class ETCAccountRequestorTest {
                 "    \"btcPerMin\":0.00000642487038473269\n" +
                 "  }\n" +
                 "}");
-        OkHttpClient httpClient = Utils.getHttpClient(response.toString(), 200);
+        OkHttpClient httpClient = HttpClientUtils.createHttpClient(response.toString(), 200);
         BigDecimal expectedBalance = BigDecimal.valueOf(0.5136271093439579);
         BigDecimal expectedHashrate = BigDecimal.valueOf(1228822767);
         Utils.testAccount(ETHERMINE, httpClient, ETC, WALLET_ADDRESS, expectedBalance, expectedHashrate);
@@ -57,7 +58,7 @@ public class ETCAccountRequestorTest {
                 "  \"status\":\"ERROR\",\n" +
                 "  \"error\":\"Invalid address\"\n" +
                 "}");
-        OkHttpClient httpClient = Utils.getHttpClient(response.toString(), 200);
+        OkHttpClient httpClient = HttpClientUtils.createHttpClient(response.toString(), 200);
         Utils.testApiError(ETHERMINE, httpClient, ETC, WALLET_ADDRESS, "Invalid address");
     }
 
@@ -67,7 +68,7 @@ public class ETCAccountRequestorTest {
                 "  \"status\":\"OK\",\n" +
                 "  \"data\":\"NO DATA\"\n" +
                 "}");
-        OkHttpClient httpClient = Utils.getHttpClient(response.toString(), 200);
+        OkHttpClient httpClient = HttpClientUtils.createHttpClient(response.toString(), 200);
         Utils.testApiError(ETHERMINE, httpClient, ETC, WALLET_ADDRESS, "NO DATA");
     }
 

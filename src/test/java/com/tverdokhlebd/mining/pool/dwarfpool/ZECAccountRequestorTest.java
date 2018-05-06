@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import com.tverdokhlebd.mining.pool.Utils;
 import com.tverdokhlebd.mining.pool.requestor.AccountRequestorException;
+import com.tverdokhlebd.mining.utils.HttpClientUtils;
 
 import okhttp3.OkHttpClient;
 
@@ -53,7 +54,7 @@ public class ZECAccountRequestorTest {
                 "    }\n" +
                 "  }\n" +
                 "}");
-        OkHttpClient httpClient = Utils.getHttpClient(response.toString(), 200);
+        OkHttpClient httpClient = HttpClientUtils.createHttpClient(response.toString(), 200);
         BigDecimal expectedBalance = BigDecimal.valueOf(0.00000001);
         BigDecimal expectedHashrate = BigDecimal.valueOf(229561.01);
         Utils.testAccount(DWARFPOOL, httpClient, ZEC, WALLET_ADDRESS, expectedBalance, expectedHashrate);
@@ -65,7 +66,7 @@ public class ZECAccountRequestorTest {
                 "  \"error\":true,\n" +
                 "  \"error_code\":\"API_DOWN\"\n" +
                 "}");
-        OkHttpClient httpClient = Utils.getHttpClient(response.toString(), 200);
+        OkHttpClient httpClient = HttpClientUtils.createHttpClient(response.toString(), 200);
         Utils.testApiError(DWARFPOOL, httpClient, ZEC, WALLET_ADDRESS, "API_DOWN");
     }
 
