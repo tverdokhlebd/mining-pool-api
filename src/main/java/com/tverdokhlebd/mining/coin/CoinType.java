@@ -9,6 +9,9 @@ package com.tverdokhlebd.mining.coin;
 public enum CoinType {
 
     BTC,
-    ETH
+    ETH,
+    ETC,
+    XMR,
+    ZEC
 
 }

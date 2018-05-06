@@ -1,11 +1,13 @@
 package com.tverdokhlebd.mining.pool.dwarfpool;
 
 import static com.tverdokhlebd.mining.coin.CoinType.ETH;
+import static com.tverdokhlebd.mining.coin.CoinType.XMR;
+import static com.tverdokhlebd.mining.coin.CoinType.ZEC;
 import static com.tverdokhlebd.mining.http.ErrorCode.API_ERROR;
 import static com.tverdokhlebd.mining.http.ErrorCode.PARSE_ERROR;
 import static com.tverdokhlebd.mining.pool.PoolType.DWARFPOOL;
 import static com.tverdokhlebd.mining.utils.TaskUtils.startRepeatedTask;
-import static java.util.concurrent.TimeUnit.SECONDS;
+import static com.tverdokhlebd.mining.utils.TimeUtils.REPEATED_TASK_PERIOD;
 
 import java.math.BigDecimal;
 import java.util.AbstractMap.SimpleEntry;
@@ -26,6 +28,7 @@ import com.tverdokhlebd.mining.pool.Account;
 import com.tverdokhlebd.mining.pool.Account.Builder;
 import com.tverdokhlebd.mining.pool.AccountBaseRequestor;
 import com.tverdokhlebd.mining.pool.PoolType;
+import com.tverdokhlebd.mining.utils.HashrateUtils;
 
 import okhttp3.OkHttpClient;
 
@@ -37,16 +40,28 @@ import okhttp3.OkHttpClient;
  */
 public class DwarfpoolAccountRequestor extends AccountBaseRequestor {
 
-    /** Request name of common data. */
-    private static final String COMMON_DATA_REQUEST_NAME = "COMMON_DATA";
+    /** Request name of ETH common data. */
+    private static final String ETH_COMMON_DATA_REQUEST_NAME = "ETH_COMMON_DATA";
+    /** Request name of XMR common data. */
+    private static final String XMR_COMMON_DATA_REQUEST_NAME = "XMR_COMMON_DATA";
+    /** Request name of ZEC common data. */
+    private static final String ZEC_COMMON_DATA_REQUEST_NAME = "ZEC_COMMON_DATA";
     /** Map of urls. */
     private static final Map<CoinType, List<SimpleEntry<String, String>>> URL_MAP = new HashMap<>();
     /** Fills map of urls. */
     static {
         List<SimpleEntry<String, String>> ethUrlList = new ArrayList<>();
-        ethUrlList.add(new SimpleEntry<String, String>(COMMON_DATA_REQUEST_NAME,
+        ethUrlList.add(new SimpleEntry<String, String>(ETH_COMMON_DATA_REQUEST_NAME,
                                                        "http://dwarfpool.com/eth/api?wallet=" + WALLET_ADDRESS_PATTERN));
         URL_MAP.put(ETH, ethUrlList);
+        List<SimpleEntry<String, String>> xmrUrlList = new ArrayList<>();
+        xmrUrlList.add(new SimpleEntry<String, String>(XMR_COMMON_DATA_REQUEST_NAME,
+                                                       "http://dwarfpool.com/xmr/api?wallet=" + WALLET_ADDRESS_PATTERN));
+        URL_MAP.put(XMR, xmrUrlList);
+        List<SimpleEntry<String, String>> zecUrlList = new ArrayList<>();
+        zecUrlList.add(new SimpleEntry<String, String>(ZEC_COMMON_DATA_REQUEST_NAME,
+                                                       "http://dwarfpool.com/zec/api?wallet=" + WALLET_ADDRESS_PATTERN));
+        URL_MAP.put(ZEC, zecUrlList);
     }
     /** Cached accounts. */
     private static final Map<SimpleEntry<CoinType, String>, SimpleEntry<Account, Date>> ACCOUNT_MAP = new ConcurrentHashMap<>();
@@ -58,7 +73,7 @@ public class DwarfpoolAccountRequestor extends AccountBaseRequestor {
             public void run() {
                 ACCOUNT_MAP.entrySet().removeIf(t -> new Date().after(t.getValue().getValue()));
             }
-        }, SECONDS.toMillis(10));
+        }, REPEATED_TASK_PERIOD);
     }
 
     /**
@@ -104,11 +119,21 @@ public class DwarfpoolAccountRequestor extends AccountBaseRequestor {
     @Override
     protected void parseResponse(String responseBody, String requestName, Builder result) throws RequestException {
         try {
-            if (requestName.equals(COMMON_DATA_REQUEST_NAME)) {
-                JSONObject jsonResponse = new JSONObject(responseBody);
-                result.setWalletBalance(BigDecimal.valueOf(jsonResponse.getDouble("wallet_balance")));
-                result.setReportedHashrate(BigDecimal.valueOf(jsonResponse.getDouble("total_hashrate")));
+            JSONObject jsonResponse = new JSONObject(responseBody);
+            BigDecimal walletBalance = BigDecimal.valueOf(jsonResponse.getDouble("wallet_balance"));
+            result.setWalletBalance(walletBalance);
+            BigDecimal reportedHashrate = BigDecimal.valueOf(jsonResponse.getDouble("total_hashrate"));
+            switch (requestName) {
+            case ETH_COMMON_DATA_REQUEST_NAME: {
+                reportedHashrate = HashrateUtils.convertMegaHashesToHashes(reportedHashrate);
+                break;
             }
+            case XMR_COMMON_DATA_REQUEST_NAME: {
+                reportedHashrate = HashrateUtils.convertKiloHashesToHashes(reportedHashrate);
+                break;
+            }
+            }
+            result.setReportedHashrate(reportedHashrate);
         } catch (JSONException e) {
             throw new RequestException(PARSE_ERROR, e);
         }

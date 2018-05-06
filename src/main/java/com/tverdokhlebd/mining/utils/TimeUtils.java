@@ -1,5 +1,7 @@
 package com.tverdokhlebd.mining.utils;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,6 +12,9 @@ import java.util.Date;
  *
  */
 public class TimeUtils {
+
+    /** Period of repeated task. */
+    public static final long REPEATED_TASK_PERIOD = SECONDS.toMillis(10);
 
     /**
      * Adds minutes to date.

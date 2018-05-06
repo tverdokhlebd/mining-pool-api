@@ -47,8 +47,8 @@ public class Utils {
         AccountRequestor accountRequestor = AccountRequestorFactory.create(poolType, httpClient, false);
         Account account = accountRequestor.requestAccount(coinType, walletAddress);
         assertEquals(walletAddress, account.getWalletAddress());
-        assertEquals(BigDecimal.valueOf(1.44245810), account.getWalletBalance());
-        assertEquals(BigDecimal.valueOf(173.67), account.getReportedHashrate());
+        assertEquals(expectedBalance, account.getWalletBalance());
+        assertEquals(expectedHashrate, account.getReportedHashrate());
     }
 
     /**
