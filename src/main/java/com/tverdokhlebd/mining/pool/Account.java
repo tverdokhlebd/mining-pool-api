@@ -27,8 +27,8 @@ public class Account {
     private Account(String walletAddress, BigDecimal walletBalance, BigDecimal reportedHashrate) {
         super();
         this.walletAddress = walletAddress;
-        this.walletBalance = walletBalance.stripTrailingZeros();
-        this.reportedHashrate = reportedHashrate.stripTrailingZeros();
+        this.walletBalance = walletBalance;
+        this.reportedHashrate = reportedHashrate;
     }
 
     /**
@@ -56,6 +56,63 @@ public class Account {
      */
     public BigDecimal getReportedHashrate() {
         return reportedHashrate;
+    }
+
+    /**
+     * Builder of pool account.
+     */
+    public static class Builder {
+
+        /** Wallet address. */
+        private String walletAddress;
+        /** Wallet balance. */
+        private BigDecimal walletBalance;
+        /** Reported hashrate in H/s. */
+        private BigDecimal reportedHashrate;
+
+        /**
+         * Creates instance.
+         */
+        public Builder() {
+            super();
+        }
+
+        /**
+         * Sets wallet address.
+         *
+         * @param walletAddress new wallet address
+         */
+        public void setWalletAddress(String walletAddress) {
+            this.walletAddress = walletAddress;
+        }
+
+        /**
+         * Sets wallet balance.
+         *
+         * @param walletBalance new wallet balance
+         */
+        public void setWalletBalance(BigDecimal walletBalance) {
+            this.walletBalance = walletBalance;
+        }
+
+        /**
+         * Sets reported hashrate.
+         *
+         * @param reportedHashrate new reported hashrate
+         */
+        public void setReportedHashrate(BigDecimal reportedHashrate) {
+            this.reportedHashrate = reportedHashrate;
+        }
+
+        /**
+         * Builds pool account.
+         *
+         * @return pool account
+         */
+        public Account build() {
+            return new Account(walletAddress, walletBalance, reportedHashrate);
+        }
+
     }
 
 }

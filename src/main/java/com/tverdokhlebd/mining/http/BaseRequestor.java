@@ -1,10 +1,8 @@
-package com.tverdokhlebd.mining.pool;
+package com.tverdokhlebd.mining.http;
 
 import static com.tverdokhlebd.mining.http.ErrorCode.HTTP_ERROR;
 
 import java.io.IOException;
-
-import com.tverdokhlebd.mining.http.RequestException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -12,13 +10,13 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /**
- * Base requestor.
+ * Base HTTP requestor.
  *
  * @author Dmitry Tverdokhleb
  *
  * @param <T> result data
  */
-abstract class BaseRequestor<T> {
+public abstract class BaseRequestor<T> {
 
     /** HTTP client. */
     private final OkHttpClient httpClient;
@@ -28,7 +26,7 @@ abstract class BaseRequestor<T> {
      *
      * @param httpClient HTTP client
      */
-    BaseRequestor(OkHttpClient httpClient) {
+    protected BaseRequestor(OkHttpClient httpClient) {
         super();
         this.httpClient = httpClient;
     }
@@ -41,15 +39,16 @@ abstract class BaseRequestor<T> {
      * @param result result data
      * @throws RequestException if there is any error in making request
      */
-    void request(String url, String requestName, T result) throws RequestException {
+    protected void request(String url, String requestName, T result) throws RequestException {
         Request request = new Request.Builder().url(url).build();
         try (Response response = httpClient.newCall(request).execute()) {
             if (!response.isSuccessful()) {
                 throw new RequestException(HTTP_ERROR, response.message());
             }
             try (ResponseBody body = response.body()) {
-                checkApiError(body, requestName);
-                parseResponse(body, requestName, result);
+                String strBody = body.string();
+                checkApiError(strBody, requestName);
+                parseResponse(strBody, requestName, result);
             }
         } catch (IOException e) {
             throw new RequestException(HTTP_ERROR, e);
@@ -63,7 +62,7 @@ abstract class BaseRequestor<T> {
      * @param requestName name of request
      * @throws RequestException if there is any API error in response
      */
-    protected abstract void checkApiError(ResponseBody responseBody, String requestName) throws RequestException;
+    protected abstract void checkApiError(String responseBody, String requestName) throws RequestException;
 
     /**
      * Parses response and fills result.
@@ -73,6 +72,6 @@ abstract class BaseRequestor<T> {
      * @param result result data
      * @throws RequestException if there is any error in parsing response
      */
-    protected abstract void parseResponse(ResponseBody responseBody, String requestName, T result) throws RequestException;
+    protected abstract void parseResponse(String responseBody, String requestName, T result) throws RequestException;
 
 }

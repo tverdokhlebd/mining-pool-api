@@ -12,7 +12,7 @@ public interface AccountRequestor {
 
     /**
      * Requests pool account.
-     * 
+     *
      * @param coinType type of coin
      * @param walletAddress wallet address
      * @return pool account
