@@ -19,7 +19,8 @@ import com.tverdokhlebd.mining.coin.CoinType;
 public enum PoolType {
 
     DWARFPOOL(Arrays.asList(ETH, XMR, ZEC)),
-    ETHERMINE(Arrays.asList(ETH, ETC, ZEC));
+    ETHERMINE(Arrays.asList(ETH, ETC, ZEC)),
+    NANOPOOL(Arrays.asList(ETH, ETC, XMR, ZEC));
 
     /** Supported list of coin types. */
     private final List<CoinType> coinTypeList;

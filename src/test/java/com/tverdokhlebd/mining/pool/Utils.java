@@ -28,7 +28,7 @@ import okhttp3.ResponseBody;
 public class Utils {
 
     /** JSON media type. */
-    private static final MediaType MEDIA_JSON = MediaType.parse("application/json");
+    public static final MediaType MEDIA_JSON = MediaType.parse("application/json");
 
     /**
      * Tests account.
