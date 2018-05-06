@@ -2,6 +2,7 @@ package com.tverdokhlebd.mining.pool;
 
 import com.tverdokhlebd.mining.http.HttpClientFactory;
 import com.tverdokhlebd.mining.pool.dwarfpool.DwarfpoolAccountRequestor;
+import com.tverdokhlebd.mining.pool.ethermine.EthermineAccountRequestor;
 
 import okhttp3.OkHttpClient;
 
@@ -64,6 +65,9 @@ public class AccountRequestorFactory {
         switch (poolType) {
         case DWARFPOOL: {
             return new DwarfpoolAccountRequestor(httpClient, useAccountCaching, accountCachingTimeInMinutes);
+        }
+        case ETHERMINE: {
+            return new EthermineAccountRequestor(httpClient, useAccountCaching, accountCachingTimeInMinutes);
         }
         default:
             throw new IllegalArgumentException(poolType.name());

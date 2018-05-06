@@ -1,5 +1,6 @@
 package com.tverdokhlebd.mining.pool;
 
+import static com.tverdokhlebd.mining.coin.CoinType.ETC;
 import static com.tverdokhlebd.mining.coin.CoinType.ETH;
 import static com.tverdokhlebd.mining.coin.CoinType.XMR;
 import static com.tverdokhlebd.mining.coin.CoinType.ZEC;
@@ -17,7 +18,8 @@ import com.tverdokhlebd.mining.coin.CoinType;
  */
 public enum PoolType {
 
-    DWARFPOOL(Arrays.asList(ETH, XMR, ZEC));
+    DWARFPOOL(Arrays.asList(ETH, XMR, ZEC)),
+    ETHERMINE(Arrays.asList(ETH, ETC, ZEC));
 
     /** Supported list of coin types. */
     private final List<CoinType> coinTypeList;
