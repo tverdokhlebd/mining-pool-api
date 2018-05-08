@@ -1,6 +1,6 @@
 package com.tverdokhlebd.mining.pool.requestor;
 
-import com.tverdokhlebd.mining.http.HttpClientFactory;
+import com.tverdokhlebd.mining.commons.http.HttpClientFactory;
 import com.tverdokhlebd.mining.pool.PoolType;
 import com.tverdokhlebd.mining.pool.dwarfpool.DwarfpoolAccountRequestor;
 import com.tverdokhlebd.mining.pool.ethermine.EthermineAccountRequestor;

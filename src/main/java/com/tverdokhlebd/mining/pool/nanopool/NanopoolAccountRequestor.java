@@ -1,14 +1,14 @@
 package com.tverdokhlebd.mining.pool.nanopool;
 
-import static com.tverdokhlebd.mining.coin.CoinType.ETC;
-import static com.tverdokhlebd.mining.coin.CoinType.ETH;
-import static com.tverdokhlebd.mining.coin.CoinType.XMR;
-import static com.tverdokhlebd.mining.coin.CoinType.ZEC;
-import static com.tverdokhlebd.mining.http.ErrorCode.API_ERROR;
-import static com.tverdokhlebd.mining.http.ErrorCode.PARSE_ERROR;
+import static com.tverdokhlebd.mining.commons.coin.CoinType.ETC;
+import static com.tverdokhlebd.mining.commons.coin.CoinType.ETH;
+import static com.tverdokhlebd.mining.commons.coin.CoinType.XMR;
+import static com.tverdokhlebd.mining.commons.coin.CoinType.ZEC;
+import static com.tverdokhlebd.mining.commons.http.ErrorCode.API_ERROR;
+import static com.tverdokhlebd.mining.commons.http.ErrorCode.PARSE_ERROR;
 import static com.tverdokhlebd.mining.pool.PoolType.NANOPOOL;
-import static com.tverdokhlebd.mining.utils.TaskUtils.startRepeatedTask;
-import static com.tverdokhlebd.mining.utils.TimeUtils.REPEATED_TASK_PERIOD;
+import static com.tverdokhlebd.mining.commons.utils.TaskUtils.startRepeatedTask;
+import static com.tverdokhlebd.mining.commons.utils.TimeUtils.REPEATED_TASK_PERIOD;
 
 import java.math.BigDecimal;
 import java.util.AbstractMap.SimpleEntry;
@@ -23,14 +23,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.tverdokhlebd.mining.coin.CoinType;
-import com.tverdokhlebd.mining.http.RequestException;
+import com.tverdokhlebd.mining.commons.coin.CoinType;
+import com.tverdokhlebd.mining.commons.http.RequestException;
 import com.tverdokhlebd.mining.pool.Account;
 import com.tverdokhlebd.mining.pool.Account.Builder;
 import com.tverdokhlebd.mining.pool.PoolType;
 import com.tverdokhlebd.mining.pool.ethermine.EthermineAccountRequestor;
 import com.tverdokhlebd.mining.pool.requestor.AccountBaseRequestor;
-import com.tverdokhlebd.mining.utils.HashrateUtils;
+import com.tverdokhlebd.mining.commons.utils.HashrateUtils;
 
 import okhttp3.OkHttpClient;
 

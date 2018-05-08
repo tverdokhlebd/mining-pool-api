@@ -1,7 +1,7 @@
 package com.tverdokhlebd.mining.pool.dwarfpool;
 
-import static com.tverdokhlebd.mining.coin.CoinType.BTC;
-import static com.tverdokhlebd.mining.coin.CoinType.XMR;
+import static com.tverdokhlebd.mining.commons.coin.CoinType.BTC;
+import static com.tverdokhlebd.mining.commons.coin.CoinType.XMR;
 import static com.tverdokhlebd.mining.pool.PoolType.DWARFPOOL;
 
 import java.math.BigDecimal;
@@ -11,8 +11,8 @@ import org.junit.Test;
 
 import com.tverdokhlebd.mining.pool.Utils;
 import com.tverdokhlebd.mining.pool.requestor.AccountRequestorException;
-import com.tverdokhlebd.mining.utils.HashrateUtils;
-import com.tverdokhlebd.mining.utils.HttpClientUtils;
+import com.tverdokhlebd.mining.commons.utils.HashrateUtils;
+import com.tverdokhlebd.mining.commons.utils.HttpClientUtils;
 
 import okhttp3.OkHttpClient;
 

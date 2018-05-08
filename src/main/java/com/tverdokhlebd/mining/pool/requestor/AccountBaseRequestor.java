@@ -1,14 +1,14 @@
 package com.tverdokhlebd.mining.pool.requestor;
 
-import static com.tverdokhlebd.mining.utils.TimeUtils.addMinutes;
+import static com.tverdokhlebd.mining.commons.utils.TimeUtils.addMinutes;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Date;
 import java.util.List;
 
-import com.tverdokhlebd.mining.coin.CoinType;
-import com.tverdokhlebd.mining.http.BaseRequestor;
-import com.tverdokhlebd.mining.http.RequestException;
+import com.tverdokhlebd.mining.commons.coin.CoinType;
+import com.tverdokhlebd.mining.commons.http.BaseRequestor;
+import com.tverdokhlebd.mining.commons.http.RequestException;
 import com.tverdokhlebd.mining.pool.Account;
 import com.tverdokhlebd.mining.pool.AccountCaching;
 import com.tverdokhlebd.mining.pool.PoolType;

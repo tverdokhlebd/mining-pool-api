@@ -4,7 +4,7 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.Date;
 import java.util.Map;
 
-import com.tverdokhlebd.mining.coin.CoinType;
+import com.tverdokhlebd.mining.commons.coin.CoinType;
 
 /**
  * Interface for pool account caching.

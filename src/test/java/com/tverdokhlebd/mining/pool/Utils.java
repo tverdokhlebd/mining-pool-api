@@ -1,19 +1,19 @@
 package com.tverdokhlebd.mining.pool;
 
-import static com.tverdokhlebd.mining.http.ErrorCode.API_ERROR;
-import static com.tverdokhlebd.mining.http.ErrorCode.HTTP_ERROR;
-import static com.tverdokhlebd.mining.http.ErrorCode.PARSE_ERROR;
+import static com.tverdokhlebd.mining.commons.http.ErrorCode.API_ERROR;
+import static com.tverdokhlebd.mining.commons.http.ErrorCode.HTTP_ERROR;
+import static com.tverdokhlebd.mining.commons.http.ErrorCode.PARSE_ERROR;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 
 import org.json.JSONObject;
 
-import com.tverdokhlebd.mining.coin.CoinType;
+import com.tverdokhlebd.mining.commons.coin.CoinType;
 import com.tverdokhlebd.mining.pool.requestor.AccountRequestor;
 import com.tverdokhlebd.mining.pool.requestor.AccountRequestorException;
 import com.tverdokhlebd.mining.pool.requestor.AccountRequestorFactory;
-import com.tverdokhlebd.mining.utils.HttpClientUtils;
+import com.tverdokhlebd.mining.commons.utils.HttpClientUtils;
 
 import okhttp3.OkHttpClient;
 

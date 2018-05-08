@@ -1,6 +1,6 @@
 package com.tverdokhlebd.mining.pool.requestor;
 
-import com.tverdokhlebd.mining.coin.CoinType;
+import com.tverdokhlebd.mining.commons.coin.CoinType;
 import com.tverdokhlebd.mining.pool.Account;
 
 /**

@@ -1,9 +1,9 @@
 package com.tverdokhlebd.mining.pool.nanopool;
 
-import static com.tverdokhlebd.mining.coin.CoinType.BTC;
-import static com.tverdokhlebd.mining.coin.CoinType.ETH;
+import static com.tverdokhlebd.mining.commons.coin.CoinType.BTC;
+import static com.tverdokhlebd.mining.commons.coin.CoinType.ETH;
 import static com.tverdokhlebd.mining.pool.PoolType.NANOPOOL;
-import static com.tverdokhlebd.mining.utils.HttpClientUtils.MEDIA_JSON;
+import static com.tverdokhlebd.mining.commons.utils.HttpClientUtils.MEDIA_JSON;
 import static okhttp3.Protocol.HTTP_2;
 
 import java.math.BigDecimal;
@@ -13,8 +13,8 @@ import org.junit.Test;
 
 import com.tverdokhlebd.mining.pool.Utils;
 import com.tverdokhlebd.mining.pool.requestor.AccountRequestorException;
-import com.tverdokhlebd.mining.utils.HashrateUtils;
-import com.tverdokhlebd.mining.utils.HttpClientUtils;
+import com.tverdokhlebd.mining.commons.utils.HashrateUtils;
+import com.tverdokhlebd.mining.commons.utils.HttpClientUtils;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
