@@ -81,27 +81,33 @@ public class Account {
          * Sets wallet address.
          *
          * @param walletAddress new wallet address
+         * @return builder
          */
-        public void setWalletAddress(String walletAddress) {
+        public Builder setWalletAddress(String walletAddress) {
             this.walletAddress = walletAddress;
+            return this;
         }
 
         /**
          * Sets wallet balance.
          *
          * @param walletBalance new wallet balance
+         * @return builder
          */
-        public void setWalletBalance(BigDecimal walletBalance) {
+        public Builder setWalletBalance(BigDecimal walletBalance) {
             this.walletBalance = walletBalance;
+            return this;
         }
 
         /**
          * Sets reported hashrate.
          *
          * @param reportedHashrate new reported hashrate
+         * @return builder
          */
-        public void setReportedHashrate(BigDecimal reportedHashrate) {
+        public Builder setReportedHashrate(BigDecimal reportedHashrate) {
             this.reportedHashrate = reportedHashrate;
+            return this;
         }
 
         /**
