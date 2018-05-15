@@ -1,19 +1,15 @@
 package com.tverdokhlebd.mining.pool.ethermine;
 
-import static com.tverdokhlebd.mining.commons.coin.CoinType.ETC;
-import static com.tverdokhlebd.mining.commons.coin.CoinType.ETH;
-import static com.tverdokhlebd.mining.commons.coin.CoinType.ZEC;
 import static com.tverdokhlebd.mining.commons.http.ErrorCode.API_ERROR;
 import static com.tverdokhlebd.mining.commons.http.ErrorCode.PARSE_ERROR;
-import static com.tverdokhlebd.mining.pool.PoolType.ETHERMINE;
 import static com.tverdokhlebd.mining.commons.utils.TaskUtils.startRepeatedTask;
 import static com.tverdokhlebd.mining.commons.utils.TimeUtils.REPEATED_TASK_PERIOD;
+import static com.tverdokhlebd.mining.pool.PoolType.ETHERMINE;
+import static com.tverdokhlebd.mining.pool.ethermine.UrlList.URL_MAP;
 
 import java.math.BigDecimal;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimerTask;
@@ -26,8 +22,8 @@ import com.tverdokhlebd.mining.commons.coin.CoinType;
 import com.tverdokhlebd.mining.commons.http.RequestException;
 import com.tverdokhlebd.mining.pool.Account;
 import com.tverdokhlebd.mining.pool.Account.Builder;
-import com.tverdokhlebd.mining.pool.requestor.AccountBaseRequestor;
 import com.tverdokhlebd.mining.pool.PoolType;
+import com.tverdokhlebd.mining.pool.requestor.AccountBaseRequestor;
 
 import okhttp3.OkHttpClient;
 
@@ -41,29 +37,6 @@ public class EthermineAccountRequestor extends AccountBaseRequestor {
 
     /** Ether value. */
     private static final BigDecimal ETHER = BigDecimal.valueOf(1_000_000_000_000_000_000L);
-    /** Request name of ETH common data. */
-    private static final String ETH_COMMON_DATA_REQUEST_NAME = "ETH_COMMON_DATA";
-    /** Request name of ETC common data. */
-    private static final String ETC_COMMON_DATA_REQUEST_NAME = "ETC_COMMON_DATA";
-    /** Request name of ZEC common data. */
-    private static final String ZEC_COMMON_DATA_REQUEST_NAME = "ZEC_COMMON_DATA";
-    /** Map of urls. */
-    private static final Map<CoinType, List<SimpleEntry<String, String>>> URL_MAP = new HashMap<>();
-    /** Fills map of urls. */
-    static {
-        List<SimpleEntry<String, String>> ethUrlList = new ArrayList<>();
-        ethUrlList.add(new SimpleEntry<String, String>(ETH_COMMON_DATA_REQUEST_NAME,
-                                                       "https://api.ethermine.org/miner/" + WALLET_ADDRESS_PATTERN + "/currentStats"));
-        URL_MAP.put(ETH, ethUrlList);
-        List<SimpleEntry<String, String>> etcUrlList = new ArrayList<>();
-        etcUrlList.add(new SimpleEntry<String, String>(ETC_COMMON_DATA_REQUEST_NAME,
-                                                       "https://api-etc.ethermine.org/miner/" + WALLET_ADDRESS_PATTERN + "/currentStats"));
-        URL_MAP.put(ETC, etcUrlList);
-        List<SimpleEntry<String, String>> zecUrlList = new ArrayList<>();
-        zecUrlList.add(new SimpleEntry<String, String>(ZEC_COMMON_DATA_REQUEST_NAME,
-                                                       "https://api-zcash.flypool.org/miner/" + WALLET_ADDRESS_PATTERN + "/currentStats"));
-        URL_MAP.put(ZEC, zecUrlList);
-    }
     /** Cached accounts. */
     private static final Map<SimpleEntry<CoinType, String>, SimpleEntry<Account, Date>> ACCOUNT_MAP = new ConcurrentHashMap<>();
     /** Initializes repeated task for removing cached accounts. */
